@@ -1,0 +1,2 @@
+int moveHorizontal
+int moveVertical
