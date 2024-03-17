@@ -1,18 +1,19 @@
-import cmd.entity as ent
-import cmd.java.data as data
-import mc.pointer as pointer
-import cmd.tp as tp
-import mc.java.nbt as nbt
+
 
 def cast() {
     /kill @e[tag=lidar.spawner]
     /kill @e[tag=lidar.looker]
     /kill @e[type=minecraft:text_display, limit=30, sort=random]
 
-    [tag="lidar.spawner"]entity spawner = pointer.newPointer()
+    // UUID: b693d05a-d372-444e-bbc4-7beca9f582c1
+    /summon marker ~ ~ ~ {UUID:[I;-1231826854,-747486130,-1144751124,-1443527999],Tags:["lidar.spawner"]}
+    entity spawner = @e[type=marker,tag=lidar.spawner]
     /execute at @s anchored eyes run tp @e[tag=lidar.spawner] ^ ^ ^ ~ ~
 
-    [tag="lidar.looker"]entity looker = pointer.newPointer()
+
+    // UUID: 427ad036-28a0-401c-b280-e9e8e5881430
+    /summon marker ~ ~ ~ {UUID:[I;1115344950,681590812,-1300174360,-444066768],Tags:["lidar.looker"]}
+    entity looker = @e[type=marker,tag=lidar.looker]
     /execute at @s anchored eyes run tp @e[tag=lidar.looker] ^ ^ ^2 ~ ~
 
     // Rotate looker to our rotation
@@ -33,14 +34,10 @@ def cast() {
     as (looker) at (@s) {
         for (int y = 0; y <= moveVertical; y++) {
             for (int x = 0; x < moveHorizontal; x++) {
-                as (spawner) at (@s) {
-                    // Make spawner look at looker
-                    facing (looker) {
-                        /tp @s ~ ~ ~ ~ ~
-                    }
-
-                    raycast.send()
-                }
+                // Make spawner look at looker
+                /execute as b693d05a-d372-444e-bbc4-7beca9f582c1 at @s facing entity 427ad036-28a0-401c-b280-e9e8e5881430 eyes run tp @s ~ ~ ~ ~ ~
+                // As spawner run raycast
+                /execute as b693d05a-d372-444e-bbc4-7beca9f582c1 at @s run function lidar:raycast/send
 
                 // Tp looker one column right
                 at (@s) {
@@ -62,4 +59,7 @@ def cast() {
             }
         }
     }
+
+    /kill @e[tag=lidar.spawner]
+    /kill @e[tag=lidar.looker]
 }

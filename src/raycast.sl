@@ -10,22 +10,22 @@ import utils.blocktags as bt
 [name="mrcd_system"]const scoreboard int system
 
 def send() {
+    /kill 9d09b143-af14-4b1d-9e62-7bf15d0a45a3
     // Summon the ray where it would end after a ray_tick (0.5 blocks)
-    /execute at @s anchored eyes run summon area_effect_cloud ^ ^ ^25 {Tags:["test_mark","init","mrcd_bullet","instnat"]}
+    // UUID: 9d09b143-af14-4b1d-9e62-7bf15d0a45a3
+    /execute at @s anchored eyes run summon area_effect_cloud ^ ^ ^25 {Tags:["test_mark","init","mrcd_bullet","instnat"], UUID:[I;-1660309181,-1357624547,-1637712911,1560954275]}
 
-    lazy entity mark = @e[type=!minecraft:text_display,tag=init,limit=1]
+    lazy entity mark = @e[type=area_effect_cloud,tag=init,limit=1]
 
     as (mark) {
         // We save the end coords of the motion vector in mblocks
         nbt.getNBT(x0, "Pos[0]", 1000)
         nbt.getNBT(y0, "Pos[1]", 1000)
         nbt.getNBT(z0, "Pos[2]", 1000)
-    }
 
-    // We tp to the starting position (and placed it on the player eyes)
-    /execute at @s anchored eyes run tp @e[type=!minecraft:text_display,tag=init,limit=1] ^ ^ ^ ~ ~
+        // We tp to the starting position (and placed it on the player eyes)
+        /execute as @p at @p anchored eyes run tp 9d09b143-af14-4b1d-9e62-7bf15d0a45a3 ^ ^ ^ ~ ~
 
-    as (mark) {
         // We save the start coords of the motion vector position in mblocks
         /execute store result score #var0 mrcd_system run data get entity @s Pos[0] 1000
         /execute store result score #var1 mrcd_system run data get entity @s Pos[1] 1000
@@ -35,15 +35,15 @@ def send() {
         /scoreboard players operation @s mrcd_x0 -= #var0 mrcd_system
         /scoreboard players operation @s mrcd_y0 -= #var1 mrcd_system
         /scoreboard players operation @s mrcd_z0 -= #var2 mrcd_system
-    }
 
+        // Kill previous existing hit
+        /kill @s[tag=mrcd_touch_edge]
 
-    // Kill previous existing hit
-    /kill @s[tag=mrcd_touch_edge]
-
-    // Run raycast
-    as (mark) at (@s) {
-        /function mrcd:ray_tick
+        // Run raycast
+        at (@s) {
+            /function mrcd:ray_tick
+        }
+        /tag 9d09b143-af14-4b1d-9e62-7bf15d0a45a3 remove mrcd_tick_done
     }
 
     lazy entity hit = @e[type=!minecraft:text_display,tag=mrcd_touch_edge]
@@ -78,8 +78,7 @@ def send() {
         }
     }
 
-    as(mark) tag.remove("init")
-    /kill @e[type=!minecraft:text_display,tag=mrcd_bullet]
+    /kill 9d09b143-af14-4b1d-9e62-7bf15d0a45a3
 }
 
 macro void summon(float yOffset, float zOffset, int rotX, int rotY, string color) {
