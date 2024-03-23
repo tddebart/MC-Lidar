@@ -117,27 +117,27 @@ define block_tag gray
 end
 
 function get_color()
-    /data merge storage lidarcb:global {args: {"color": "#e9ecec"}}
+    /data merge storage lidar:global {args: {"color": "#e9ecec"}}
 
     at ~ ~ ~
         if block wood
-            /data merge storage lidarcb:global {args: {"color": "#b57609"}}
+            /data merge storage lidar:global {args: {"color": "#b57609"}}
         else if block dirt
-            /data merge storage lidarcb:global {args: {"color": "#5b8731"}}
+            /data merge storage lidar:global {args: {"color": "#5b8731"}}
         else if block red
-            /data merge storage lidarcb:global {args: {"color": "#a12722"}}
+            /data merge storage lidar:global {args: {"color": "#a12722"}}
         else if block green
-            /data merge storage lidarcb:global {args: {"color": "#546d1b"}}
+            /data merge storage lidar:global {args: {"color": "#546d1b"}}
         else if block blue
-            /data merge storage lidarcb:global {args: {"color": "#35399d"}}
+            /data merge storage lidar:global {args: {"color": "#35399d"}}
         else if block orange
-            /data merge storage lidarcb:global {args: {"color": "#f07613"}}
+            /data merge storage lidar:global {args: {"color": "#f07613"}}
         else if block yellow
-            /data merge storage lidarcb:global {args: {"color": "#f8c627"}}
+            /data merge storage lidar:global {args: {"color": "#f8c627"}}
         else if block gray
-            /data merge storage lidarcb:global {args: {"color": "#8e8e86"}}
+            /data merge storage lidar:global {args: {"color": "#8e8e86"}}
         else if block sand
-            /data merge storage lidarcb:global {args: {"color": "#e0d8ae"}}
+            /data merge storage lidar:global {args: {"color": "#e0d8ae"}}
         end
     end
 
