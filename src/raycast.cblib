@@ -36,42 +36,40 @@ function raycast()
         /scoreboard players operation @s mrcd_y0 -= #var1 mrcd_system
         /scoreboard players operation @s mrcd_z0 -= #var2 mrcd_system
 
-        # Kill previous existing hit
-        # This needs optimizing
-        /kill @e[tag=mrcd_touch_edge]
-
         # Run raycast
         at @s
             /function mrcd:ray_tick
         end
         /tag 9d09b143-af14-4b1d-9e62-7bf15d0a45a3 remove mrcd_tick_done
 
-        as @e[tag=mrcd_touch_edge] at @s
-            get_color()
-            at ^ ^ ^-0.001
-                if @s[tag=mrcd_touch_y_plus]
-                    $summon(0, 0.2, 0, -90)
-                    $summon(0, 0.2, 0, 90)
-                end
-                if @s[tag=mrcd_touch_y_minus]
-                    $summon(0, -0.2, 0, 90)
-                    $summon(0, -0.2, 0, -90)
-                end
-                if @s[tag=mrcd_touch_z_plus]
-                    $summon(-0.18, 0, 0, 0)
-                    $summon(-0.18, 0, 180, 0)
-                end
-                if @s[tag=mrcd_touch_z_minus]
-                    $summon(-0.18, 0, 180, 0)
-                    $summon(-0.18, 0, 0, 0)
-                end
-                if @s[tag=mrcd_touch_x_plus]
-                    $summon(-0.18, 0, -90, 0)
-                    $summon(-0.18, 0, 90, 0)
-                end
-                if @s[tag=mrcd_touch_x_minus]
-                    $summon(-0.18, 0, 90,0)
-                    $summon(-0.18, 0, -90,0)
+        if @s[tag=mrcd_touch_edge]
+            as @s at @s
+                get_color()
+                at ^ ^ ^-0.001
+                    if @s[tag=mrcd_touch_y_plus]
+                        $summon(0, 0.2, 0, -90)
+                        $summon(0, 0.2, 0, 90)
+                    end
+                    if @s[tag=mrcd_touch_y_minus]
+                        $summon(0, -0.2, 0, 90)
+                        $summon(0, -0.2, 0, -90)
+                    end
+                    if @s[tag=mrcd_touch_z_plus]
+                        $summon(-0.18, 0, 0, 0)
+                        $summon(-0.18, 0, 180, 0)
+                    end
+                    if @s[tag=mrcd_touch_z_minus]
+                        $summon(-0.18, 0, 180, 0)
+                        $summon(-0.18, 0, 0, 0)
+                    end
+                    if @s[tag=mrcd_touch_x_plus]
+                        $summon(-0.18, 0, -90, 0)
+                        $summon(-0.18, 0, 90, 0)
+                    end
+                    if @s[tag=mrcd_touch_x_minus]
+                        $summon(-0.18, 0, 90,0)
+                        $summon(-0.18, 0, -90,0)
+                    end
                 end
             end
         end
