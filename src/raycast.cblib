@@ -79,5 +79,5 @@ function raycast()
 end
 
 macro $summon($yOffset, $zOffset, $rotX, $rotY)
-    /summon text_display ~ ~$yOffset ~$zOffset {Tags: ["text_marker"], Rotation:[$rotXF, $rotYF],text:'{"text":"⚫","color":"$(color)"}',background:0, width:0.1f, height:0.1f}
+    /summon text_display ~ ~$yOffset ~$zOffset {Tags: ["text_marker"], Rotation:[$rotXF, $rotYF],text:'{"text":"⚫","color":"$(color)"}',background:0, width:0.1f, height:0.1f, alignment:"left"}
 end

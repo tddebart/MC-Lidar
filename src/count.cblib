@@ -1,9 +1,9 @@
-$limit = 32
+$limit = 64
 
 function count()
     align xyz at ~0.5 ~ ~0.5
         eCount = 0
-        as @e[distance=..0.5, type=text_display]
+        as @e[distance=..0.65, type=text_display]
             eCount++
         end
 
@@ -13,21 +13,56 @@ function count()
             with
                 $(eCount) = eCount-$limit
             do
-                /kill @e[distance=..0.5, type=text_display, limit=$(eCount), sort=random]
+                /kill @e[distance=..0.65, type=text_display, limit=$(eCount), sort=random]
             end
         end
     end
 end
 
-# function clear()
-#     for x = -5 to 5
-#         for y = -5 to 5
-#             with
-#                 $(x) = x
-#                 $(y) = y
-#             do
-#                 at @s align xyz at ~(x) ~ ~(y)
-#                     count()
+function clear()
+    /kill @Position
+    create @Position
+    at @s
+        for x = -10 to 10
+            for y = -10 to 10
+                with
+                    $(x) = x
+                    $(y) = y
+                do
+                    /tp @Position ~$(x) ~ ~$(y)
+                end
+
+                at @Position
+                    count()
+                end
+            end
+        end
+    end
+    /kill @Position
+end
+
+# function align()
+#     at @s align xyz
+#         /kill @Position
+#         create @Position
+
+#         for x = 1 to 8
+#             for y = 1 to 8
+#                 /tp @Position ~0.0625 ~ ~
+#                 for i = 1 to x
+#                     at @Position
+#                         /tp @Position ~0.0625 ~ ~
+#                     end
+#                 end
+#                 /tp @Position ~ ~ ~0.0625
+#                 for i = 1 to y
+#                     at @Position
+#                         /tp @Position ~ ~ ~0.0625
+#                     end
+#                 end
+
+#                 at @Position as @e[distance=..0.1, type=text_display]
+#                     /tp @s @Position
 #                 end
 #             end
 #         end
