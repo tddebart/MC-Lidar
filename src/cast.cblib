@@ -1,0 +1,59 @@
+import shared
+import raycast
+
+function cast()
+    /kill @e[type=minecraft:text_display, limit=30, sort=random]
+
+    /kill @Spawner
+    create @Spawner ~ ~ ~
+
+    at @s eyes
+        /tp @Spawner ^ ^ ^ ~ ~
+    end
+
+    /kill @Looker
+    create @Looker ~ ~ ~
+
+    at @s eyes
+        /tp @Looker ^ ^ ^2 ~ ~
+    end
+
+    for i = 0 to (moveHorizontal/2)-1
+        as @Looker at @s
+            /tp @s ^0.25 ^ ^
+        end
+    end
+
+    for i = 0 to moveVertical
+        as @Looker at @s
+            /tp @s ^ ^-0.138 ^
+        end
+    end
+
+    as @Looker at @s
+        for y = 0 to moveVertical
+            for x = 0 to moveHorizontal
+                as @Spawner at @s
+                    facing @Looker
+                        /tp @s ~ ~ ~ ~ ~
+                    end
+                    raycast()
+                end
+
+                at @s
+                    /tp @s ^-0.25 ^ ^
+                end
+            end
+
+            at @s
+                /tp @s ^ ^0.3 ^
+            end
+
+            for x = 0 to moveHorizontal
+                at @s
+                    /tp @s ^0.25 ^ ^
+                end
+            end
+        end
+    end
+end

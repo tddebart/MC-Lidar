@@ -1,0 +1,35 @@
+$limit = 32
+
+function count()
+    align xyz at ~0.5 ~ ~0.5
+        eCount = 0
+        as @e[distance=..0.5, type=text_display]
+            eCount++
+        end
+
+        tell @a "(eCount)"
+
+        if eCount > $limit
+            with
+                $(eCount) = eCount-$limit
+            do
+                /kill @e[distance=..0.5, type=text_display, limit=$(eCount), sort=random]
+            end
+        end
+    end
+end
+
+# function clear()
+#     for x = -5 to 5
+#         for y = -5 to 5
+#             with
+#                 $(x) = x
+#                 $(y) = y
+#             do
+#                 at @s align xyz at ~(x) ~ ~(y)
+#                     count()
+#                 end
+#             end
+#         end
+#     end
+# end

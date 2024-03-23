@@ -1,0 +1,36 @@
+dir "..\output"
+desc "Lidar scanner"
+scale 1000
+
+import libs\common
+import cast
+import count
+
+reset
+	unless moveHorizontal >= 0
+		moveHorizontal = 10
+	end
+	unless moveVertical >= 0
+		moveVertical = 5
+	end
+
+	/scoreboard objectives add lidar_used minecraft.used:minecraft.carrot_on_a_stick
+end
+
+clock tick
+	as @a at @s
+		if @s.lidar_used
+			cast()
+			@s.lidar_used = 0
+		end
+	end
+end
+
+function info()
+	tell @a "\\n--------------------------------\\n{R[\[Reset settings\]](/function $namespace:reset_vals)\\n\\n{WHorizontal rows: (moveHorizontal)\\nVertical collums: (moveVertical)"
+end
+
+function reset_vals()
+	moveHorizontal = 10
+	moveVertical = 5
+end

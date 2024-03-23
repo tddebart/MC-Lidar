@@ -1,0 +1,145 @@
+define block_tag wood
+    #minecraft:logs
+    #minecraft:planks
+    #wooden_buttons
+    #wooden_doors
+    #wooden_fences
+    #wooden_pressure_plates
+    #wooden_slabs
+    #wooden_stairs
+    #wooden_trapdoors
+end
+
+define block_tag dirt
+    #minecraft:dirt
+end
+
+define block_tag sand
+    #minecraft:sand
+end
+
+define block_tag red
+    red_wool
+    red_carpet
+    red_terracotta
+    red_glazed_terracotta
+    red_concrete
+    red_concrete_powder
+    red_stained_glass
+    red_stained_glass_pane
+    red_shulker_box
+    red_bed
+    red_candle
+
+    redstone_block
+    repeater
+    comparator
+    #minecraft:infiniburn_nether
+end
+
+define block_tag green
+    green_wool
+    green_carpet
+    green_terracotta
+    green_glazed_terracotta
+    green_concrete
+    green_concrete_powder
+    green_stained_glass
+    green_stained_glass_pane
+    green_shulker_box
+    green_bed
+    green_candle
+
+    slime_block
+    #minecraft:leaves
+end
+
+define block_tag blue
+    blue_wool
+    blue_carpet
+    blue_terracotta
+    blue_glazed_terracotta
+    blue_concrete
+    blue_concrete_powder
+    blue_stained_glass
+    blue_stained_glass_pane
+    blue_shulker_box
+    blue_bed
+    blue_candle
+end
+
+define block_tag orange
+    orange_wool
+    orange_carpet
+    orange_terracotta
+    orange_glazed_terracotta
+    orange_concrete
+    orange_concrete_powder
+    orange_stained_glass
+    orange_stained_glass_pane
+    orange_shulker_box
+    orange_bed
+    orange_candle
+
+end
+
+define block_tag yellow
+    yellow_wool
+    yellow_carpet
+    yellow_terracotta
+    yellow_glazed_terracotta
+    yellow_concrete
+    yellow_concrete_powder
+    yellow_stained_glass
+    yellow_stained_glass_pane
+    yellow_shulker_box
+    yellow_bed
+    yellow_candle
+
+end
+
+define block_tag gray
+    gray_wool
+    gray_carpet
+    gray_terracotta
+    gray_glazed_terracotta
+    gray_concrete
+    gray_concrete_powder
+    gray_stained_glass
+    gray_stained_glass_pane
+    gray_shulker_box
+    gray_bed
+    gray_candle
+
+    #minecraft:base_stone_overworld
+    gravel
+    #minecraft:stone_bricks
+end
+
+function get_color()
+    /data merge storage lidarcb:global {args: {"color": "#e9ecec"}}
+
+    at ~ ~ ~
+        if block wood
+            /data merge storage lidarcb:global {args: {"color": "#b57609"}}
+        else if block dirt
+            /data merge storage lidarcb:global {args: {"color": "#5b8731"}}
+        else if block red
+            /data merge storage lidarcb:global {args: {"color": "#a12722"}}
+        else if block green
+            /data merge storage lidarcb:global {args: {"color": "#546d1b"}}
+        else if block blue
+            /data merge storage lidarcb:global {args: {"color": "#35399d"}}
+        else if block orange
+            /data merge storage lidarcb:global {args: {"color": "#f07613"}}
+        else if block yellow
+            /data merge storage lidarcb:global {args: {"color": "#f8c627"}}
+        else if block gray
+            /data merge storage lidarcb:global {args: {"color": "#8e8e86"}}
+        else if block sand
+            /data merge storage lidarcb:global {args: {"color": "#e0d8ae"}}
+        end
+    end
+
+
+end

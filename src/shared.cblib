@@ -1,0 +1,11 @@
+define @Spawner : 0-0-0-0-0x557F083C (@Marker)
+    create {
+        UUID: [I; 0,0,0,0x557F083C]
+    }
+end
+
+define @Looker : 0-0-0-0-0x17bd1a7a (@Marker)
+    create {
+        UUID: [I; 0,0,0,0x17bd1a7a]
+    }
+end

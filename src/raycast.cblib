@@ -1,0 +1,85 @@
+import shared
+import color
+
+define @Ray : 0-0-0-0-0x1408a613 (@Entity[type=area_effect_cloud])
+    create {
+        UUID: [I; 0,0,0,0x1408a613],
+        Tags: ["test_mark","mrcd_bullet","instnat"]
+    }
+end
+
+function raycast()
+    /kill @Ray
+    at @s eyes
+        # Summon the ray where it would end after a ray_tick (0.5 blocks)
+        create @Ray ^ ^ ^25
+    end
+
+    as @Ray
+        # We save the end coords of the motion vector in mblocks
+        @s.mrcd_x0 = @Ray.x
+        @s.mrcd_y0 = @Ray.y
+        @s.mrcd_z0 = @Ray.z
+
+        # We tp to the starting position (and placed it on the player eyes)
+        as @p at @p eyes
+            /tp @Ray ^ ^ ^ ~ ~
+        end
+
+        # We save the start coords of the motion vector position in mblocks
+        /execute store result score #var0 mrcd_system run data get entity @s Pos[0] 1000
+        /execute store result score #var1 mrcd_system run data get entity @s Pos[1] 1000
+        /execute store result score #var2 mrcd_system run data get entity @s Pos[2] 1000
+
+        # We calculate the motion vector (end - start)
+        /scoreboard players operation @s mrcd_x0 -= #var0 mrcd_system
+        /scoreboard players operation @s mrcd_y0 -= #var1 mrcd_system
+        /scoreboard players operation @s mrcd_z0 -= #var2 mrcd_system
+
+        # Kill previous existing hit
+        # This needs optimizing
+        /kill @e[tag=mrcd_touch_edge]
+
+        # Run raycast
+        at @s
+            /function mrcd:ray_tick
+        end
+        /tag 9d09b143-af14-4b1d-9e62-7bf15d0a45a3 remove mrcd_tick_done
+
+        as @e[tag=mrcd_touch_edge] at @s
+            get_color()
+            at ^ ^ ^-0.001
+                if @s[tag=mrcd_touch_y_plus]
+                    $summon(0, 0.2, 0, -90)
+                    $summon(0, 0.2, 0, 90)
+                end
+                if @s[tag=mrcd_touch_y_minus]
+                    $summon(0, -0.2, 0, 90)
+                    $summon(0, -0.2, 0, -90)
+                end
+                if @s[tag=mrcd_touch_z_plus]
+                    $summon(-0.18, 0, 0, 0)
+                    $summon(-0.18, 0, 180, 0)
+                end
+                if @s[tag=mrcd_touch_z_minus]
+                    $summon(-0.18, 0, 180, 0)
+                    $summon(-0.18, 0, 0, 0)
+                end
+                if @s[tag=mrcd_touch_x_plus]
+                    $summon(-0.18, 0, -90, 0)
+                    $summon(-0.18, 0, 90, 0)
+                end
+                if @s[tag=mrcd_touch_x_minus]
+                    $summon(-0.18, 0, 90,0)
+                    $summon(-0.18, 0, -90,0)
+                end
+            end
+        end
+
+        /kill @Ray
+    end
+end
+
+macro $summon($yOffset, $zOffset, $rotX, $rotY)
+    /summon text_display ~ ~$yOffset ~$zOffset {Tags: ["text_marker"], Rotation:[$rotXF, $rotYF],text:'{"text":"⚫","color":"$(color)"}',background:0, width:0.1f, height:0.1f}
+end
