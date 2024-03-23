@@ -27,10 +27,38 @@ clock tick
 end
 
 function info()
-	tell @a "\\n--------------------------------\\n{R[\[Reset settings\]](/function $namespace:reset_vals)\\n\\n{WHorizontal rows: (moveHorizontal)\\nVertical collums: (moveVertical)"
+	$horiMinus = "{R[\[-\]](/function lidar:hori_minus)"
+	$horiPlus = "{G[\[+\]](/function lidar:hori_plus)"
+	$horizontal = "{WHorizontal rows: $horiMinus {W(moveHorizontal) $horiPlus"
+
+	$vertiMinus = "{R[\[-\]](/function lidar:vertical_minus)"
+	$vertiPlus = "{G[\[+\]](/function lidar:vertical_plus)"
+	$vertical = "{WVertical collums: $vertiMinus {W(moveVertical) $vertiPlus"
+
+	tell @a "\\n--------------------------------\\n{R[\[Reset settings\]](/function $namespace:reset_vals)\\n\\n$horizontal\\n$vertical"
 end
 
 function reset_vals()
 	moveHorizontal = 10
 	moveVertical = 5
+end
+
+function hori_minus()
+	moveHorizontal--
+	info()
+end
+
+function hori_plus()
+	moveHorizontal++
+	info()
+end
+
+function vertical_minus()
+	moveVertical--
+	info()
+end
+
+function vertical_plus()
+	moveVertical++
+	info()
 end
